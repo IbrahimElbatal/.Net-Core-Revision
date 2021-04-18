@@ -1,0 +1,42 @@
+﻿@using Extend.Models
+@model Extend.Models.Cart
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-hover table-striped">
+    <tr>
+        <th>Quantity</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>TotalPrice</th>
+    </tr>
+    @foreach (var line in Model.Lines)
+    {
+        <tr>
+            <td>@line.Quantity</td>
+            <td>@line.Product.Name</td>
+            <td>@line.Product.Price</td>
+            <td>@(line.Product.Price * line.Quantity)</td>
+            <td>
+                <form
+                    asp-controller="Cart"
+                    asp-action="RemoveFromCart"
+                    asp-route-productId="@line.Product.Id">
+                    <button class="btn btn-danger" type="submit">
+                        Remove
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td>@Model.ComputeTotalValue()</td>
+    </tr>
+
+</table>

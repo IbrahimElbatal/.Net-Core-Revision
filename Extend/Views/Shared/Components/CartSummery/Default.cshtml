@@ -1,0 +1,3 @@
+﻿@model Extend.Models.Cart
+
+<p class="text-white">Your Cart : @Model.Lines.Sum(l => l.Quantity) Item(s) @Model.ComputeTotalValue()</p>

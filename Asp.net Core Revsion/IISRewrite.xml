@@ -1,0 +1,8 @@
+﻿<rewrite>
+  <rules>
+    <rule name="Rewite Rule From QueryString" stopProcessing="true">
+      <match url="^iis-rewrite-rule/(.*)$" />
+      <action type="Rewrite" url="rewritten?id={R:1}" appendQueryString="false"/>
+    </rule>
+  </rules>
+</rewrite>

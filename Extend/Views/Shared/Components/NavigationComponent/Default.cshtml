@@ -1,0 +1,23 @@
+﻿@model IEnumerable<string>
+
+@{
+    var currentCategory = ViewBag.CurrentCategory as string;
+}
+
+
+<a class="btn btn-block
+   @(currentCategory == "" ? "btn-dark":"btn-outline-dark" )"
+   asp-controller="Product"
+   asp-action="Index"
+   asp-route-category="">Home</a>
+
+@foreach (var category in Model)
+{
+    <a class="btn btn-block
+       @(currentCategory.ToLower() == category.ToLower() ? "btn-dark":"btn-outline-dark")"
+       asp-controller="Product"
+       asp-action="Index"
+       asp-route-category="@category">@category</a>
+
+}
+

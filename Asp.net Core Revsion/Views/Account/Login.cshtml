@@ -1,0 +1,69 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2 class="alert alert-info">Login</h2>
+<hr />
+<div class="row">
+    <div class="col">
+        <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check">
+                <input asp-for="RememberMe" class="form-check-input">
+                <label asp-for="RememberMe" class="form-check-label">
+                </label>
+                <span asp-validation-for="RememberMe" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+            <a asp-controller="Account"
+               asp-action="ForgetPassword">Forget Password</a>
+        </form>
+    </div>
+    <div class="col">
+        @if (!Model.ExternalLogins.Any())
+        {
+            <div>No External logins Configured.</div>
+        }
+        else
+        {
+            <form asp-action="ExternalLogin"
+                  asp-controller="Account"
+                  asp-route-returnUrl="@Model.ReturnUrl">
+                @foreach (var provider in Model.ExternalLogins)
+                {
+                    <button type="submit"
+                            name="provider"
+                            value="@provider.Name"
+                            class="btn btn-primary">
+                        @provider.DisplayName
+                    </button>
+                }
+            </form>
+        }
+
+    </div>
+
+</div>
+
+@section Scripts
+    {
+    @{
+
+        await Html.RenderPartialAsync("_JqueryValidation");
+    }
+}

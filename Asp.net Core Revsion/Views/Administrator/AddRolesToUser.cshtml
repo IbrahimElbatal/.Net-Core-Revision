@@ -1,0 +1,38 @@
+﻿@model IList<UserRolesViewModel>
+@{
+    ViewData["Title"] = "AddRolesToUser";
+    var userId = ViewBag.UserId;
+}
+
+<h2 class="alert alert-info">AddRolesToUser</h2>
+
+<form asp-controller="Administrator"
+      asp-action="AddRolesToUser"
+      asp-route-userId="@userId">
+
+    <div class="card bg-light mt-3">
+        <div class="card-header">Add Or Remove Roles from This User</div>
+        <div class="card-body">
+            <h5 class="card-title">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <input type="hidden" asp-for="@Model[i].RoleId" />
+                    <input type="hidden" asp-for="@Model[i].Name" />
+                    <div class="form-check">
+                        <input asp-for="@Model[i].IsSelected" class="form-check-input">
+                        <label asp-for="@Model[i].IsSelected" class="form-check-label">
+                            @Model[i].Name
+                        </label>
+                    </div>
+                }
+            </h5>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a class="btn btn-info"
+               asp-controller="Administrator"
+               asp-action="EditUser"
+               asp-route-userId="@userId">Cancel</a>
+        </div>
+    </div>
+</form>

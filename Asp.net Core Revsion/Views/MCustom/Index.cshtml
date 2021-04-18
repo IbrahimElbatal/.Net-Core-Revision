@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Department>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+    @foreach (var item in Model)
+    {
+        foreach (var itemz in item.Employees)
+        {
+            <p>@itemz.Name</p>
+        }
+    }

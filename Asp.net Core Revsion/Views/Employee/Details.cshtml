@@ -1,0 +1,25 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Employee Details</h2>
+<hr />
+
+<table>
+    <tr>
+        <td>Id</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>Department</td>
+        <td>@Model.Department</td>
+    </tr>
+    <tr></tr>
+</table>
+<img src="/Images/@Model.ImagePath" />
+

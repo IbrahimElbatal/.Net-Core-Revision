@@ -1,0 +1,58 @@
+﻿@model EditRoleViewModel
+@{
+    ViewData["Title"] = "EditRole";
+}
+
+<h2 class="alert alert-info">EditRole</h2>
+<hr />
+<form asp-controller="Administrator"
+      asp-action="EditRole">
+    <div class="text-danger"
+         asp-validation-summary="ModelOnly"></div>
+
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input class="form-control"
+               asp-for="Id"
+               readonly="readonly" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control"
+               asp-for="Name" />
+        <span class="text-danger"
+              asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a class="btn btn-info"
+           asp-controller="Administrator"
+           asp-action="Roles">Cancel</a>
+    </div>
+</form>
+
+<div class="card bg-light mt-3">
+    <div class="card-header">Users In This Role</div>
+    <div class="card-body">
+        <h5 class="card-title">
+            @if (!Model.Users.Any())
+            {
+                @:None at this moment
+            }
+            else
+            {
+                foreach (var userName in Model.Users)
+                {
+                    <span> @userName</span><br />
+                }
+            }
+        </h5>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary"
+           asp-controller="Administrator"
+           asp-action="AddUsersToRole"
+           asp-route-roleId="@Model.Id">Add Users</a>
+    </div>
+</div>

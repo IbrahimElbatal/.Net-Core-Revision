@@ -1,0 +1,14 @@
+﻿@using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging
+
+@{
+    ViewData["Title"] = "Index";
+    var status = ViewBag.StatusCode;
+    var message = ViewBag.Message;
+}
+
+<h2>Error</h2>
+<hr />
+
+<h1>@status</h1>
+<p>@message</p>
+

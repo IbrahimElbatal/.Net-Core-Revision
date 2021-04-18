@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h2 class="alert alert-info">Users</h2>
+<a class="btn btn-primary"
+   asp-controller="Account"
+   asp-action="Register">New User</a>
+
+@foreach (var user in Model)
+{
+    <div class="card bg-light mb-3">
+        <div class="card-header">UserId : @user.Id</div>
+        <div class="card-body">
+            <h5 class="card-title">@user.Email</h5>
+        </div>
+        <div class="card-footer">
+            <form asp-controller="Administrator"
+                  asp-action="DeleteUser"
+                  asp-route-userId="@user.Id">
+                <a class="btn btn-primary"
+                   asp-controller="Administrator"
+                   asp-action="EditUser"
+                   asp-route-userId="@user.Id">Edit</a>
+
+                <button type="submit"
+                        onclick="return confirm('Are you sure yo want to delete this user?')"
+                        class="btn btn-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+}
+

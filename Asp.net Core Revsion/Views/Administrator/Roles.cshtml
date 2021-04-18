@@ -1,0 +1,48 @@
+﻿@model List<IdentityRole>
+@inject IAuthorizationService AuthorizationService
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h2 class="alert alert-info">Roles</h2>
+<hr />
+@if ((await AuthorizationService.AuthorizeAsync(User, "CreatePolicy")).Succeeded)
+{
+    <a asp-controller="Administrator"
+       asp-action="CreateRole"
+       class="btn btn-primary mb-2">New Role</a>
+}
+
+@foreach (var role in Model)
+{
+    <div class="card bg-light mb-3">
+        <div class="card-header">RoleId : @role.Id</div>
+        <div class="card-body">
+            <h5 class="card-title">@role.Name</h5>
+        </div>
+        <div class="card-footer">
+            <form asp-controller="Administrator"
+                  asp-action="DeleteRole"
+                  asp-route-roleId="@role.Id">
+                @if ((await AuthorizationService.AuthorizeAsync(User, "EditPolicy")).Succeeded)
+                {
+                    <a class="btn btn-primary"
+                       asp-controller="Administrator"
+                       asp-action="EditRole"
+                       asp-route-roleId="@role.Id">Edit</a>
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, "DeletePolicy")).Succeeded)
+                {
+                    <button type="submit"
+                            onclick="return confirm('Are you sure yo want to delete this role?')"
+                            class="btn btn-danger">
+                        Delete
+                    </button>
+                }
+
+            </form>
+        </div>
+    </div>
+}
+
